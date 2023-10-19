@@ -47,6 +47,31 @@ class AccountMove(models.Model):
         else:
             raise UserError(_("No country found in Odoo for country code : {}".format(customer_country_code)))
 
+    def _set_partner_address(self, partner, street, street2, zip, city, country_id):
+        '''
+        Set Odoo partner address based on eshop customer address
+
+        Args:
+        partner (str) : instance of res_partner (mandatory)
+        street (str) : street from eshop invoice (mandatory)
+        street2 (str) : street 2 (optional)
+        zip (str) : zip from eshop invoice (mandatory)
+        city (str) : city from eshop invoice (mandatory)
+        country_id (int) : country ID in Odoo (optional)
+        '''
+        # Si le client a pour adresse celle passée en paramètre, ne rien faire
+        if partner.street == street and partner.zip == zip and partner.city == city:
+            return
+
+        # Si l'adresse passée en paramètre n'est pas connue pour ce client, changer l'adresse du client
+        partner.write({
+            'street': street,
+            'street2': street2,
+            'zip': zip,
+            'city': city,
+            'country_id': country_id,
+        })
+
     def _get_or_create_delivery_address(self, partner, street, street2, zip, city, country_id):
         '''
         Get or create Odoo partner delivery address based on eshop customer address
@@ -85,15 +110,15 @@ class AccountMove(models.Model):
         else:
             new_contact = self.env['res.partner'].create({'parent_id': partner.id,
                                                           'name': 'contact_from_BeL', #pour créer un partner, un nom est obligatoire
-                                                         })
-            new_contact.write({'street': street,
-                               'street2': street2,
-                               'zip': zip,
-                               'city': city,
-                               'country_id': country_id,
-                          })
+                                                          'type': 'delivery',
+                                                          'street': street,
+                                                          'street2': street2,
+                                                          'zip': zip,
+                                                          'city': city,
+                                                          'country_id': country_id,
+                                                        })
             return new_contact.id
-
+            
     def _get_uom(self, product_uom):
         '''
         Get Odoo UOM ID based on the product UOM.
@@ -230,20 +255,41 @@ class AccountMove(models.Model):
         else:
             raise UserError(_("Missing 'customer_email' in invoice data JSON."))
 
-       # Get or create Odoo partner delivery address
-        required_keys = ['street', 'postal_code', 'city']
+        #Find partner adress
+        required_keys = ['customer_street', 'customer_zip', 'customer_city']
         if all(key in parsed_eshop_invoice_data for key in required_keys): # check if all 3 keys (street,zip,city) are in parsed_eshop_invoice_data keys
-            street2 = parsed_eshop_invoice_data.get('street2', None)
-            if 'country' in parsed_eshop_invoice_data:
-                country_id = self._get_country_id(parsed_eshop_invoice_data['country'])
+            street2 = parsed_eshop_invoice_data.get('customer_street2', None)
+            if 'customer_country' in parsed_eshop_invoice_data:
+                country_id = self._get_country_id(parsed_eshop_invoice_data['customer_country'])
+            else :
+                country_id = None
+
+            #Set Odoo partner adress
+            self._set_partner_address(customer, 
+                                    parsed_eshop_invoice_data['customer_street'],
+                                    street2,
+                                    parsed_eshop_invoice_data['customer_zip'],
+                                    parsed_eshop_invoice_data['customer_city'],
+                                    country_id)
+        else:
+            missing_keys_str = ', '.join(["'{}'".format(key) for key in missing_keys])
+            raise UserError(_("Missing {} in invoice data JSON.".format(missing_keys_str)))
+
+
+       # Get or create Odoo partner delivery address
+        required_keys = ['delivery_street', 'delivery_zip', 'delivery_city']
+        if all(key in parsed_eshop_invoice_data for key in required_keys): # check if all 3 keys (street,zip,city) are in parsed_eshop_invoice_data keys
+            street2 = parsed_eshop_invoice_data.get('delivery_street2', None)
+            if 'delivery_country' in parsed_eshop_invoice_data:
+                country_id = self._get_country_id(parsed_eshop_invoice_data['delivery_country'])
             else :
                 country_id = None
 
             partner_shipping_id = self._get_or_create_delivery_address(customer, 
-                                                                      parsed_eshop_invoice_data['street'],
+                                                                      parsed_eshop_invoice_data['delivery_street'],
                                                                       street2,
-                                                                      parsed_eshop_invoice_data['postal_code'],
-                                                                      parsed_eshop_invoice_data['city'],
+                                                                      parsed_eshop_invoice_data['delivery_zip'],
+                                                                      parsed_eshop_invoice_data['delivery_city'],
                                                                       country_id)
         else:
             missing_keys_str = ', '.join(["'{}'".format(key) for key in missing_keys])
