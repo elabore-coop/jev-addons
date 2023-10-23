@@ -1,8 +1,8 @@
 <?php
 
-$url = 'https://monsite.com';
+$url = 'https://mon-eshop.com';
 $db = 'mon_odoo';
-$username = 'bel@jardinenvie.org';
+$username = 'eshop@jardinenvie.org';
 $password = 'mon_mdp';
 
 require_once('ripcord/ripcord.php');
@@ -17,20 +17,20 @@ $uid = $common->authenticate($db, $username, $password, array());
 // Create a connection to the Odoo object (models) XML-RPC server
 $models = ripcord::client("$url/xmlrpc/2/object");
 
-$invoice = array('customer_email' => 'exemple@demo4.com', # (str) (obligatoire)
+$invoice = array('customer_email' => 'my_customer@email.com', # (str) (obligatoire)
                  'customer_name' => 'customer_name', # (str) (obligatoire)
-                 'customer_street' => '5 rue des Cêdres', # (str) adresse du client (obligatoire)
+                 'customer_street' => '1 rue des Cêdres', # (str) adresse du client (obligatoire)
                  'customer_street2' => 'BP 10000', # (str) adresse du client (optionnel)
-                 'customer_zip' => '75002', # (str) code postal du client (obligatoire)
+                 'customer_zip' => '75001', # (str) code postal du client (obligatoire)
                  'customer_city' => 'Paris', # (str) ville du client (obligatoire)
                  'customer_country' => 'FR', # (str) Code pays du client - exemple : BE pour Belgique (optionnel)
-                 'delivery_street' => '6 rue des Cêdres', # (str) adresse de livraison (obligatoire)
+                 'delivery_street' => '1 rue des Cêdres', # (str) adresse de livraison (obligatoire)
                  'delivery_street2' => 'BP 10000', # (str) adresse de livraison (optionnel)
-                 'delivery_zip' => '75002', # (str) code postal de livraison (obligatoire)
+                 'delivery_zip' => '75001', # (str) code postal de livraison (obligatoire)
                  'delivery_city' => 'Paris', # (str) ville de livraison (obligatoire)
                  'delivery_country' => 'FR', # (str) Code pays de livraison - exemple : BE pour Belgique (optionnel)
                  'invoice_date' => '2023-10-18', # (str) date de facturation au format 'yyyy-mm-dd' (obligatoire)
-                 'reference' => 'num_bel_de_facture_625', # (str) reference ou nom de facture (obligatoire)
+                 'reference' => 'num_de_facture_eshop', # (str) reference ou nom de facture (obligatoire)
                  'payment_state' => 'not_paid', # (str) status du paiement, 2 valeurs possibles : 'not_paid' ou 'paid' (obligatoire)
                  'invoice_date_due' => '2023-10-23', # (str) date d'échéance du paiement au format 'yyyy-mm-dd' (obligatoire)
                  'payment_mode' => 'CH', # (str) mode de paiement, 4 valeurs possibles : 'CB' pour les CB, 'CH' pour les chèques, 'PREL' pour les prélèvement, 'VIR' pour les virement (obligatoire)
@@ -57,5 +57,6 @@ $json_invoice_data = json_encode($invoice);
 //call api
 $result = $models->execute_kw($db, $uid, $password, 'account.move', 'create_invoice', array(array(),$json_invoice_data));
 
+echo(json_encode($result)) //success if $result = 0, else str
 
 ?>

@@ -145,7 +145,7 @@ class AccountMove(models.Model):
         Return:
         int: ID of instance of product_product
         '''
-        generic_product = self.env['product.product'].search([('categ_id', '=', 9),('uom_id','=',product_uom_id)], limit=1) #category 9 est la categorie "eshop" TODO mettre l'identifiant de la bdd en prod
+        generic_product = self.env['product.product'].search([('categ_id', '=', 9),('uom_id','=',product_uom_id)], limit=1) #category 9 is "eshop" category TODO mettre l'identifiant de la bdd en prod
         if generic_product:
             return generic_product
         else:
@@ -249,25 +249,24 @@ class AccountMove(models.Model):
         '''
         # Get or create Odoo partner (as customer)
         if 'customer_email' in parsed_eshop_invoice_data:
-            # Recherchez ou créez le client
+            # Get or create customer
             customer_name = parsed_eshop_invoice_data.get('customer_name', None)
             customer = self._get_or_create_customer(parsed_eshop_invoice_data['customer_email'], customer_name)
         else:
             raise UserError(_("Missing 'customer_email' in invoice data JSON."))
 
-        #Find partner adress
+        # Find partner adress
         required_keys = ['customer_street', 'customer_zip', 'customer_city']
         if all(key in parsed_eshop_invoice_data for key in required_keys): # check if all 3 keys (street,zip,city) are in parsed_eshop_invoice_data keys
-            street2 = parsed_eshop_invoice_data.get('customer_street2', None)
-            if 'customer_country' in parsed_eshop_invoice_data:
+            country_code = parsed_eshop_invoice_data.get('customer_country', None)
+            if country_code :
                 country_id = self._get_country_id(parsed_eshop_invoice_data['customer_country'])
             else :
                 country_id = None
-
-            #Set Odoo partner adress
+            # Set Odoo partner adress
             self._set_partner_address(customer, 
                                     parsed_eshop_invoice_data['customer_street'],
-                                    street2,
+                                    parsed_eshop_invoice_data.get('customer_street2', None),
                                     parsed_eshop_invoice_data['customer_zip'],
                                     parsed_eshop_invoice_data['customer_city'],
                                     country_id)
@@ -275,19 +274,18 @@ class AccountMove(models.Model):
             missing_keys_str = ', '.join(["'{}'".format(key) for key in missing_keys])
             raise UserError(_("Missing {} in invoice data JSON.".format(missing_keys_str)))
 
-
        # Get or create Odoo partner delivery address
         required_keys = ['delivery_street', 'delivery_zip', 'delivery_city']
         if all(key in parsed_eshop_invoice_data for key in required_keys): # check if all 3 keys (street,zip,city) are in parsed_eshop_invoice_data keys
-            street2 = parsed_eshop_invoice_data.get('delivery_street2', None)
-            if 'delivery_country' in parsed_eshop_invoice_data:
+            country_code = parsed_eshop_invoice_data.get('delivery_country', None)
+            if country_code :
                 country_id = self._get_country_id(parsed_eshop_invoice_data['delivery_country'])
             else :
                 country_id = None
-
+            # Get or create delivery address
             partner_shipping_id = self._get_or_create_delivery_address(customer, 
                                                                       parsed_eshop_invoice_data['delivery_street'],
-                                                                      street2,
+                                                                      parsed_eshop_invoice_data.get('delivery_street2', None),
                                                                       parsed_eshop_invoice_data['delivery_zip'],
                                                                       parsed_eshop_invoice_data['delivery_city'],
                                                                       country_id)
@@ -295,13 +293,13 @@ class AccountMove(models.Model):
             missing_keys_str = ', '.join(["'{}'".format(key) for key in missing_keys])
             raise UserError(_("Missing {} in invoice data JSON.".format(missing_keys_str)))
 
-        # Get numero de facture
+        # Get invoice reference / name
         if 'reference' in parsed_eshop_invoice_data:
             name = parsed_eshop_invoice_data['reference']
         else:
             raise UserError(_("Missing 'reference' in invoice data JSON."))   
         
-        #Get payment mode
+        # Get payment mode
         if 'payment_mode' in parsed_eshop_invoice_data :
             payment_mode_id = self._get_payment_mode(parsed_eshop_invoice_data['payment_mode'])
         else :
@@ -412,20 +410,21 @@ class AccountMove(models.Model):
         except json.decoder.JSONDecodeError as e:
             raise UserError(_("Invalid JSON format: %s" % str(e)))
 
-        #Get invoice data
+        # Get invoice data
         invoice_data = self._get_invoice_data(parsed_eshop_invoice_data)
 
-        #Create invoice
+        # Create invoice
         invoice = self.env['account.move'].create(invoice_data)
 
-        #Change state from 'draft' to 'posted'
+        # Change invoice state from 'draft' to 'posted'
         invoice.action_post()
 
-        #Get payment state
+        # Get payment state
         if self._get_payment_state(parsed_eshop_invoice_data) == 'paid':
+            # Create payments
             invoice._create_payments()
 
-        return "Invoice created !"
+        return 0
 
     def update_invoice(self, eshop_updated_invoice_data):
         '''
@@ -440,13 +439,13 @@ class AccountMove(models.Model):
         except json.decoder.JSONDecodeError as e:
             raise UserError(_("Invalid JSON format: %s" % str(e)))
 
-        #Get odoo invoice
+        # Get odoo invoice
         invoice = self._get_odoo_invoice(parsed_eshop_updated_invoice_data)
 
-        #TODO est-ce que je dois ajouter la date de paiement?
-        #Get payment state
+        # Get payment state
         if self._get_payment_state(parsed_eshop_invoice_data) == 'paid':
+            # Create payments
             invoice._create_payments()
 
-        return "Invoice updated !"
+        return 0
 
