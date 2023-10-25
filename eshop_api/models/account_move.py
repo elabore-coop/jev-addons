@@ -150,7 +150,25 @@ class AccountMove(models.Model):
             return generic_product
         else:
             raise UserError(_("No related generic product found in Odoo for {}".format(product_uom_id)))
-  
+
+    def _get_or_create_service(self):
+        '''
+        Get Odoo "eshop generic" product (type "service") for shipping.
+
+        Return:
+        int: ID of instance of product_product
+        '''
+        generic_shipping_service = self.env['product.product'].search([('categ_id', '=', 9),('detailed_type','=','service')], limit=1) #category 9 is "eshop" category TODO mettre l'identifiant de la bdd en prod
+        if generic_shipping_service:
+            return generic_shipping_service
+        else:
+            generic_shipping_service = self.env['product.product'].create({'categ_id': 9, 'detailed_type': 'service'})
+            if not generic_shipping_service:
+                raise UserError("Failed to create a shipping service product.")
+            return generic_shipping_service
+
+
+
     def _get_tax(self, tax):
         '''
         Get Odoo tax ID based on the tax rate.
@@ -190,7 +208,23 @@ class AccountMove(models.Model):
             else:
                 raise UserError(_("No payment mode in Odoo for {}. Please contact administrator of Jardin'en Vie's Odoo".format(eshop_payment_code)))
         else:
-            raise UserError(_("No payment mode in Odoo for {}.".format(eshop_payment_code)))             
+            raise UserError(_("No payment mode in Odoo for {}.".format(eshop_payment_code)))     
+
+    def _get_payment_term_id(self, eshop_payment_term):
+        '''
+        Get Odoo payment term ID based on the eshop payment term.
+
+        Args:
+        eshop_payment_term (str): payment term ('3x sans frais')
+
+        Return:
+        int: ID of corresponding payment term in Odoo
+        '''
+        odoo_payment_term = self.env['account.payment.term'].search([('name', '=', eshop_payment_term)], limit=1)  
+        if odoo_payment_term:
+            return odoo_payment_term.id
+        else:
+            raise UserError(_("No payment term found in Odoo for {}. Please contact administrator of JEV Odoo".format(tax)))
 
     def _check_date_format(self, date):
         # regex pattern for format "yyyy-mm-dd"
@@ -199,7 +233,7 @@ class AccountMove(models.Model):
             return True
         return False
 
-    def _get_invoice_line_value(self, customer_id, invoice_line):
+    def _get_invoice_line_value(self, invoice_line):
         '''
         Build invoice line data from eshop invoice
 
@@ -233,7 +267,6 @@ class AccountMove(models.Model):
             raise UserError(_("Missing 'tax' in invoice data JSON."))
 
         invoice_line_values = {
-            'partner_id': customer_id,
             'product_id': product.id,
             'name': invoice_line['product_name'],
             'quantity': invoice_line['product_quantity'],
@@ -243,6 +276,25 @@ class AccountMove(models.Model):
         }
         return invoice_line_values
         
+    def _get_shipping_values(self, shipping_data):
+        '''
+        Get shipping amount and tax rate
+        '''
+
+        tax_ids = []
+        # Get Odoo tax id
+        if 'tax' in shipping_data:
+            tax_ids.append(self._get_tax(shipping_data['tax']))
+        else :
+            raise UserError(_("Missing shipping tax in invoice data JSON."))
+
+        return {
+            'name': 'Frais de port',
+            'product_id': self._get_or_create_service().id,
+            'price_unit': shipping_data['product_price_unit'],
+            'tax_ids': [(6, 0, tax_ids)]
+        }
+
     def _get_invoice_data(self, parsed_eshop_invoice_data):
         '''
         Build new invoice data from eshop api result
@@ -260,7 +312,7 @@ class AccountMove(models.Model):
         if all(key in parsed_eshop_invoice_data for key in required_keys): # check if all 3 keys (street,zip,city) are in parsed_eshop_invoice_data keys
             country_code = parsed_eshop_invoice_data.get('customer_country', None)
             if country_code :
-                country_id = self._get_country_id(parsed_eshop_invoice_data['customer_country'])
+                country_id = self._get_country_id(country_code)
             else :
                 country_id = None
             # Set Odoo partner adress
@@ -279,7 +331,7 @@ class AccountMove(models.Model):
         if all(key in parsed_eshop_invoice_data for key in required_keys): # check if all 3 keys (street,zip,city) are in parsed_eshop_invoice_data keys
             country_code = parsed_eshop_invoice_data.get('delivery_country', None)
             if country_code :
-                country_id = self._get_country_id(parsed_eshop_invoice_data['delivery_country'])
+                country_id = self._get_country_id(country_code)
             else :
                 country_id = None
             # Get or create delivery address
@@ -305,6 +357,13 @@ class AccountMove(models.Model):
         else :
             raise UserError(_("Missing 'payment_mode' in invoice data JSON."))
 
+        # get payment term
+        payment_term = parsed_eshop_invoice_data.get('payment_term', None)
+        if payment_term:
+            payment_term_id = self._get_payment_term_id(parsed_eshop_invoice_data['payment_term'])
+        else:
+            payment_term_id = None
+
         # Get invoice date
         if 'invoice_date' in parsed_eshop_invoice_data:
             if self._check_date_format(parsed_eshop_invoice_data['invoice_date']):
@@ -323,23 +382,27 @@ class AccountMove(models.Model):
         else :
             raise UserError(_("Missing 'invoice_date_due' in invoice data JSON.")) 
 
-        # Find eshop invoice lines
+        # Get invoice lines values in eshop invoice for products
+        invoice_lines_data = []
         if 'invoice_lines' in parsed_eshop_invoice_data:
-            # Get all invoice lines values in eshop invoice
-            invoice_lines_data = []
             for invoice_line in parsed_eshop_invoice_data['invoice_lines']:
-                invoice_lines_data.append(self._get_invoice_line_value(customer.id, invoice_line))
+                invoice_lines_data.append(self._get_invoice_line_value(invoice_line))
         else:
             raise UserError(_("Missing 'invoice_lines' in invoice data JSON."))
 
+        # Get eshop shipping amount and tax rate
+        if 'shipping' in parsed_eshop_invoice_data:
+            invoice_lines_data.append(self._get_shipping_values(parsed_eshop_invoice_data['shipping']))
+
         invoice_data = ({
             'name': name,
-            'move_type': 'out_invoice', # pour que ma facture apparaisse en ligne, il faut que move_type =  'out_invoice'
+            'move_type': 'out_invoice',
             'invoice_date': invoice_date,
             'invoice_date_due': invoice_date_due,
             'partner_id': customer.id,
             'partner_shipping_id': partner_shipping_id,
             'payment_mode_id': payment_mode_id,
+            'invoice_payment_term_id': payment_term_id, 
             'invoice_line_ids' : [(0, 0, d) for d in invoice_lines_data],
         })
 

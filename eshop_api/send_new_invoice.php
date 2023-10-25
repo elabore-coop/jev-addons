@@ -34,13 +34,14 @@ $invoice = array('customer_email' => 'my_customer@email.com', # (str) (obligatoi
                  'payment_state' => 'not_paid', # (str) status du paiement, 2 valeurs possibles : 'not_paid' ou 'paid' (obligatoire)
                  'invoice_date_due' => '2023-10-23', # (str) date d'échéance du paiement au format 'yyyy-mm-dd' (obligatoire)
                  'payment_mode' => 'CH', # (str) mode de paiement, 4 valeurs possibles : 'CB' pour les CB, 'CH' pour les chèques, 'PREL' pour les prélèvement, 'VIR' pour les virement (obligatoire)
+                 'payment_term' => '3x sans frais', # (str) condition de paiement, 1 valeur possible : '3x sans frais' (optionnel)
                  'invoice_lines' => array(
                                         array(
                                             'product_name' => 'Tomate', # (str) nom du produit (obligatoire)
                                             'product_quantity' => 2, # (float) quantité (obligatoire)
                                             'product_price_unit' => 5.40, # (float) prix unitaire (obligatoire)
                                             'product_uom' => 'kg', # (str) unité de mesure (obligatoire)
-                                            'tax' => 5.5, # (float) Taux de TVA. Par example : 5.5 pour 5,50% / 20 pour 20%
+                                            'tax' => 5.5, # (float) Taux de TVA. Par example : 5.5 pour 5,50% / 20 pour 20% (obligatoire)
                                         ),
                                         array(
                                             'product_name' => 'Carottes',
@@ -49,7 +50,16 @@ $invoice = array('customer_email' => 'my_customer@email.com', # (str) (obligatoi
                                             'product_uom' => 'Botte',
                                             'tax' => 20,
                                         ),
-                                    ), 
+                                        array(
+                                            'product_name' => 'Frais de port',
+                                            'product_price_unit' => 18.50,
+                                            'tax' => 20,
+                                        ),
+                                    ),
+                 'shipping' => array(
+                                'product_price_unit' => 22.50, # (float) prix unitaire (obligatoire)
+                                'tax' => 5.5, # (float) Taux de TVA. Par example : 5.5 pour 5,50% / 20 pour 20% (obligatoire)
+                               )
                 );
 
 $json_invoice_data = json_encode($invoice);
