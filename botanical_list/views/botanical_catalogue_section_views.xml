@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="botanical_catalogue_section_action" model="ir.actions.act_window">
+        <field name="name">Botanical catalogue section</field>
+        <field name="res_model">botanical.catalogue.section</field>
+        <field name="context">{'search_default_active': True}</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+    
+    <record id="botanical_catalogue_section_view_tree" model="ir.ui.view">
+        <field name="name">botanical.catalogue.section.tree</field>
+        <field name="model">botanical.catalogue.section</field>
+        <field name="arch" type="xml">
+            <tree string="Botanical catalogue section">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

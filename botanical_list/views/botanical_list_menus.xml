@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<odoo>
+    <menuitem name="Botanic"
+    id="botanical_list_menu_root" 
+    web_icon="botanical_list,static/description/icon.png">
+        <menuitem id="botanical_list" name="Botanical list">
+            <menuitem id="botanical_family" action="botanical_family_action"/>
+            <menuitem id="botanical_species" action="botanical_species_action"/>
+            <menuitem id="botanical_variety" action="botanical_variety_action"/>
+            <menuitem id="botanical_catalogue_section" action="botanical_catalogue_section_action"/>
+        </menuitem>
+    </menuitem>
+</odoo>

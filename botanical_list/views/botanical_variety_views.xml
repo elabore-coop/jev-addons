@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="botanical_variety_action" model="ir.actions.act_window">
+        <field name="name">Botanical variety</field>
+        <field name="res_model">botanical.variety</field>
+        <field name="context">{'search_default_active': True}</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+    
+    <record id="botanical_variety_view_tree" model="ir.ui.view">
+        <field name="name">botanical.variety.tree</field>
+        <field name="model">botanical.variety</field>
+        <field name="arch" type="xml">
+            <tree string="Botanical variety">
+                <field name="complete_name"/>
+                <field name="species_id"   optional="hide"/>
+                <field name="commercial_name"   optional="hide"/>
+                <field name="latin_name" optional="hide"/>
+                <field name="life_cycle"/>
+                <field name="description"/>
+                <field name="gardening_advice" optional="hide"/>
+                <field name="characteristic"/>
+                <field name="notes" optional="hide"/>
+                <field name="species_id" optional="hide"/>
+                <field name="catalogue_section_id"/>
+                <field name="product_ids"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="botanical_variety_view_search" model="ir.ui.view">
+        <field name="name">botanical.variety.view.search</field>
+        <field name="model">botanical.variety</field>
+        <field name="arch" type="xml">
+            <search string="Search Varieties">
+                <field name="complete_name"/>
+                <field name="latin_name"/>
+                <field name="commercial_name"/>
+                <field name="life_cycle"/>
+                <field name="species_id"/>
+                <field name="characteristic"/>
+                <field name="catalogue_section_id"/>
+            </search>
+        </field>
+    </record>
+
+</odoo>

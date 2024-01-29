@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_botanical_family_all,botanical.family.all,model_botanical_family,,1,1,1,1
+access_botanical_species_all,botanical.species.all,model_botanical_species,,1,1,1,1
+access_botanical_variety_all,botanical.model_botanical_variety.all,model_botanical_variety,,1,1,1,1
+access_botanical_catalogue_section_all,botanical.cataligue.section.all,model_botanical_catalogue_section,,1,1,1,1

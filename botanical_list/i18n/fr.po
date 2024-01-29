@@ -1,0 +1,221 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* botanical_list
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-12-12 07:51+0000\n"
+"PO-Revision-Date: 2023-12-12 07:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: botanical_list
+#: model:ir.model.fields.selection,name:botanical_list.selection__botanical_variety__life_cycle__annual
+msgid "Annual"
+msgstr "Annuelle"
+
+#. module: botanical_list
+#: model:ir.model.fields.selection,name:botanical_list.selection__botanical_variety__life_cycle__biennial
+msgid "Biennial"
+msgstr "Bisannuelle"
+
+#. module: botanical_list
+#: model:ir.ui.menu,name:botanical_list.botanical_list_menu_root
+msgid "Botanic"
+msgstr "Botanique"
+
+#. module: botanical_list
+#: model:ir.model,name:botanical_list.model_botanical_species
+msgid "Botanical Species"
+msgstr "Espèce botanique"
+
+#. module: botanical_list
+#: model:ir.actions.act_window,name:botanical_list.botanical_catalogue_section_action
+#: model:ir.model,name:botanical_list.model_botanical_catalogue_section
+#: model:ir.ui.menu,name:botanical_list.botanical_catalogue_section
+#: model_terms:ir.ui.view,arch_db:botanical_list.botanical_catalogue_section_view_tree
+msgid "Botanical catalogue section"
+msgstr "Section catalogue botanique"
+
+#. module: botanical_list
+#: model:ir.actions.act_window,name:botanical_list.botanical_family_action
+#: model:ir.model,name:botanical_list.model_botanical_family
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_species__family_id
+#: model:ir.ui.menu,name:botanical_list.botanical_family
+#: model_terms:ir.ui.view,arch_db:botanical_list.botanical_family_view_tree
+msgid "Botanical family"
+msgstr "Famille botanique"
+
+#. module: botanical_list
+#: model:ir.ui.menu,name:botanical_list.botanical_list
+msgid "Botanical list"
+msgstr "Liste botanique"
+
+#. module: botanical_list
+#: model:ir.actions.act_window,name:botanical_list.botanical_species_action
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_variety__species_id
+#: model:ir.ui.menu,name:botanical_list.botanical_species
+#: model_terms:ir.ui.view,arch_db:botanical_list.botanical_species_view_tree
+msgid "Botanical species"
+msgstr "Espèce botanique"
+
+#. module: botanical_list
+#: model:ir.actions.act_window,name:botanical_list.botanical_variety_action
+#: model:ir.model,name:botanical_list.model_botanical_variety
+#: model:ir.ui.menu,name:botanical_list.botanical_variety
+#: model_terms:ir.ui.view,arch_db:botanical_list.botanical_variety_view_tree
+msgid "Botanical variety"
+msgstr "Variété botanique"
+
+#. module: botanical_list
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_variety__catalogue_section_id
+msgid "Catalogue section"
+msgstr ""
+
+#. module: botanical_list
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_variety__characteristic
+msgid "Characteristic"
+msgstr "Caractéristique"
+
+#. module: botanical_list
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_species__name
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_variety__commercial_name
+msgid "Commercial name"
+msgstr "Nom commercial"
+
+#. module: botanical_list
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_catalogue_section__name
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_variety__complete_name
+msgid "Complete name"
+msgstr "Nom complet"
+
+#. module: botanical_list
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_catalogue_section__create_uid
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_family__create_uid
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_species__create_uid
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_variety__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: botanical_list
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_catalogue_section__create_date
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_family__create_date
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_species__create_date
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_variety__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: botanical_list
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_catalogue_section__description
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_species__description
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_variety__description
+msgid "Description"
+msgstr ""
+
+#. module: botanical_list
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_catalogue_section__display_name
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_family__display_name
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_species__display_name
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_variety__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: botanical_list
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_family__name
+msgid "Family name"
+msgstr "Nom de la famille"
+
+#. module: botanical_list
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_species__gardening_advice
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_variety__gardening_advice
+msgid "Gardening advice"
+msgstr "Conseil de jardinage"
+
+#. module: botanical_list
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_catalogue_section__id
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_family__id
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_species__id
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_variety__id
+msgid "ID"
+msgstr ""
+
+#. module: botanical_list
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_catalogue_section____last_update
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_family____last_update
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_species____last_update
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_variety____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: botanical_list
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_catalogue_section__write_uid
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_family__write_uid
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_species__write_uid
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_variety__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: botanical_list
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_catalogue_section__write_date
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_family__write_date
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_species__write_date
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_variety__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: botanical_list
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_variety__latin_name
+msgid "Latin name"
+msgstr "Nom latin"
+
+#. module: botanical_list
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_variety__life_cycle
+msgid "Life Cycle"
+msgstr "Cycle de vie"
+
+#. module: botanical_list
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_variety__notes
+msgid "Notes"
+msgstr ""
+
+#. module: botanical_list
+#: model:ir.model.fields.selection,name:botanical_list.selection__botanical_variety__life_cycle__perennial
+msgid "Perennial"
+msgstr "Vivace"
+
+#. module: botanical_list
+#: model:ir.model.fields.selection,name:botanical_list.selection__botanical_variety__life_cycle__perennial_biennial
+msgid "Perennial biennial"
+msgstr "Bisannuelle vivace"
+
+#. module: botanical_list
+#: model:ir.model,name:botanical_list.model_product_template
+msgid "Product"
+msgstr "Produit"
+
+#. module: botanical_list
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_variety__product_ids
+msgid "Products"
+msgstr "Produits"
+
+#. module: botanical_list
+#: model_terms:ir.ui.view,arch_db:botanical_list.botanical_variety_view_search
+msgid "Search Varieties"
+msgstr "Recherche variété botanique"
+
+#. module: botanical_list
+#: model:ir.model.fields,field_description:botanical_list.field_botanical_catalogue_section__code
+msgid "Section"
+msgstr ""
+
+#. module: botanical_list
+#: model:ir.model.fields,field_description:botanical_list.field_product_product__variety_ids
+#: model:ir.model.fields,field_description:botanical_list.field_product_template__variety_ids
+msgid "Varieties"
+msgstr "Varietés"

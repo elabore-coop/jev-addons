@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="botanical_family_action" model="ir.actions.act_window">
+        <field name="name">Botanical family</field>
+        <field name="res_model">botanical.family</field>
+        <field name="context">{'search_default_active': True}</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+    
+    <record id="botanical_family_view_tree" model="ir.ui.view">
+        <field name="name">botanical.family.tree</field>
+        <field name="model">botanical.family</field>
+        <field name="arch" type="xml">
+            <tree string="Botanical family">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

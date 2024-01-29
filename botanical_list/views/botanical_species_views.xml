@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="botanical_species_action" model="ir.actions.act_window">
+        <field name="name">Botanical species</field>
+        <field name="res_model">botanical.species</field>
+        <field name="context">{'search_default_active': True}</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+    
+    <record id="botanical_species_view_tree" model="ir.ui.view">
+        <field name="name">botanical.species.tree</field>
+        <field name="model">botanical.species</field>
+        <field name="arch" type="xml">
+            <tree string="Botanical species">
+                <field name="name"/>
+                <!-- <field name="life_cycle"/> -->
+                <field name="description"/>
+                <field name="gardening_advice"/>
+                <field name="family_id"/>
+            </tree>
+        </field>
+    </record>
+</odoo>
