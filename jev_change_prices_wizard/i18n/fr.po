@@ -1,0 +1,104 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* jev_change_prices_wizard
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-29 14:17+0000\n"
+"PO-Revision-Date: 2024-01-29 14:17+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: jev_change_prices_wizard
+#: model_terms:ir.ui.view,arch_db:jev_change_prices_wizard.jev_change_prices_wizard_from_plu_view
+#: model_terms:ir.ui.view,arch_db:jev_change_prices_wizard.jev_change_prices_wizard_from_rules_view
+msgid "Apply"
+msgstr "Appliquer"
+
+#. module: jev_change_prices_wizard
+#: model:ir.actions.act_window,name:jev_change_prices_wizard.action_jev_change_prices_wizard_from_plu
+msgid "Change prices rules from plu code"
+msgstr "Changer les rêgles de prix en fonction du PLU"
+
+#. module: jev_change_prices_wizard
+#: model:ir.actions.act_window,name:jev_change_prices_wizard.action_jev_change_prices_wizard_from_rules
+msgid "Change prices rules from price list"
+msgstr "Changer les rêgles de prix en fonction des attributs"
+
+#. module: jev_change_prices_wizard
+#: model:ir.model.fields,field_description:jev_change_prices_wizard.field_jev_change_prices_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: jev_change_prices_wizard
+#: model:ir.model.fields,field_description:jev_change_prices_wizard.field_jev_change_prices_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: jev_change_prices_wizard
+#: model:ir.model.fields,field_description:jev_change_prices_wizard.field_jev_change_prices_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: jev_change_prices_wizard
+#: model:ir.model.fields,field_description:jev_change_prices_wizard.field_jev_change_prices_wizard__fixed_price
+msgid "Fixed Price"
+msgstr ""
+
+#. module: jev_change_prices_wizard
+#: model:ir.model.fields,help:jev_change_prices_wizard.field_jev_change_prices_wizard__min_quantity
+msgid ""
+"For the rule to apply, bought/sold quantity must be greater than or equal to the minimum quantity specified in this field.\n"
+"Expressed in the default unit of measure of the product."
+msgstr ""
+
+#. module: jev_change_prices_wizard
+#: model:ir.model.fields,field_description:jev_change_prices_wizard.field_jev_change_prices_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: jev_change_prices_wizard
+#: model:ir.model.fields,field_description:jev_change_prices_wizard.field_jev_change_prices_wizard____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: jev_change_prices_wizard
+#: model:ir.model.fields,field_description:jev_change_prices_wizard.field_jev_change_prices_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: jev_change_prices_wizard
+#: model:ir.model.fields,field_description:jev_change_prices_wizard.field_jev_change_prices_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: jev_change_prices_wizard
+#: model:ir.model.fields,field_description:jev_change_prices_wizard.field_jev_change_prices_wizard__min_quantity
+msgid "Min. Quantity"
+msgstr "Quantité min"
+
+#. module: jev_change_prices_wizard
+#: model:ir.model.fields,field_description:jev_change_prices_wizard.field_jev_change_prices_wizard__plu
+msgid "PLU Code"
+msgstr "Code PLU"
+
+#. module: jev_change_prices_wizard
+#: model:ir.model.fields,field_description:jev_change_prices_wizard.field_jev_change_prices_wizard__cat_id
+msgid "Product Category"
+msgstr "Catégorie de produit"
+
+#. module: jev_change_prices_wizard
+#: model:ir.model.fields,field_description:jev_change_prices_wizard.field_jev_change_prices_wizard__attribut_id
+msgid "attribut value"
+msgstr "Valeur de l'attribut"
+
+#. module: jev_change_prices_wizard
+#: model:ir.model,name:jev_change_prices_wizard.model_jev_change_prices_wizard
+msgid "jev.change.prices.wizard"
+msgstr "JEV Changement de prix"
