@@ -58,14 +58,12 @@ class JevChangePricesWizard(models.TransientModel):
 
         for pricelist in pricelists:
 
-            pricelist_items_applied_on_variant = self.env['product.pricelist.item'].search([
-                ('applied_on', '=', '0_product_variant'),
-                ('product_id.plu', '=', plu),
-                ('pricelist_id','=',pricelist.id)
+            pricelist_items = self.env['product.pricelist.item'].search([
+                ('plu', '=', plu),
             ])
 
             #change price in priceliste rules
-            for pricelist_item in pricelist_items_applied_on_variant:
+            for pricelist_item in pricelist_items:
                 pricelist_item.write({
                     'min_quantity': new_min_quantity,
                     'fixed_price': new_price,
