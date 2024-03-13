@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleorder_document_inherit_picking_scheduled_date" name="Picking scheduled date on sale order document" inherit_id="sale.report_saleorder_document" priority="40">
+        <xpath expr="//div[@class='col-auto col-3 mw-100 mb-2'][last()]" position="replace">
+            <div t-if="doc.picking_ids" class="col-auto col-3 mw-100 mb-2">
+                <strong>Picking scheduled date:</strong>
+                <t t-foreach="doc.picking_ids" t-as="picking">
+                    <p class="m-0" t-field="picking.scheduled_date" t-options="{'date_only': True}"/>
+                </t>
+            </div>
+        </xpath>
+    </template>
+</odoo>
