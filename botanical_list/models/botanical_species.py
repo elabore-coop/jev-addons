@@ -12,6 +12,6 @@ class BotanicalSpecies(models.Model):
     name = fields.Char('Commercial name')
     description = fields.Char('Description')
     gardening_advice = fields.Char('Gardening advice')
-
+    default_pmg = fields.Float('default TSW')
     family_id = fields.Many2one("botanical.family", string = "Botanical family")
 

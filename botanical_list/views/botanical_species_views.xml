@@ -13,9 +13,9 @@
         <field name="arch" type="xml">
             <tree string="Botanical species">
                 <field name="name"/>
-                <!-- <field name="life_cycle"/> -->
                 <field name="description"/>
                 <field name="gardening_advice"/>
+                <field name="default_pmg"/>
                 <field name="family_id"/>
             </tree>
         </field>
