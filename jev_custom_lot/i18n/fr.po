@@ -1,0 +1,72 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* jev_custom_lot
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-13 14:09+0000\n"
+"PO-Revision-Date: 2024-03-13 14:09+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: jev_custom_lot
+#: model:ir.model,name:jev_custom_lot.model_stock_lot
+msgid "Lot/Serial"
+msgstr "Lot/N° série"
+
+#. module: jev_custom_lot
+#. odoo-python
+#: code:addons/jev_custom_lot/models/stock_quant.py:0
+#, python-format
+msgid ""
+"No lot or no tsw found in {}. Please create a lot or enter the tsw in the "
+"lot to calculate the number of seeds in stock."
+msgstr "Le lot ou le PMG n'a pas été trouvé pour le produit {}. Renseignez le lot ou entrer un PMG pour permettre le calcul du nombre de graine à partir du poids en stock."
+
+#. module: jev_custom_lot
+#: model:ir.model.fields,field_description:jev_custom_lot.field_stock_lot__pmg
+msgid "TSW (g)"
+msgstr "PMG (en grammes)"
+
+#. module: jev_custom_lot
+#: model:ir.model,name:jev_custom_lot.model_uom_uom
+msgid "Product Unit of Measure"
+msgstr "Unité de mesure du produit"
+
+#. module: jev_custom_lot
+#: model:ir.model,name:jev_custom_lot.model_stock_quant
+msgid "Quants"
+msgstr ""
+
+#. module: jev_custom_lot
+#: model:ir.model.fields,field_description:jev_custom_lot.field_stock_lot__tg
+msgid "TG"
+msgstr ""
+
+#. module: jev_custom_lot
+#: model:ir.model.fields,field_description:jev_custom_lot.field_stock_lot__tg_date
+msgid "TG date"
+msgstr "Date du TG"
+
+#. module: jev_custom_lot
+#: model:ir.model.fields,field_description:jev_custom_lot.field_stock_lot__is_seeds
+#: model:ir.model.fields,field_description:jev_custom_lot.field_stock_quant__is_seeds
+#: model:ir.model.fields,field_description:jev_custom_lot.field_uom_uom__is_seeds
+msgid "This product is sold per seed"
+msgstr "Ce produit est vendu à la graine"
+
+#. module: jev_custom_lot
+#: model:ir.model.fields,field_description:jev_custom_lot.field_stock_lot__weight
+msgid "Weight (g)"
+msgstr "Poids du lot (en grammes)"
+
+#. module: jev_custom_lot
+#: model:ir.model.fields,field_description:jev_custom_lot.field_stock_quant__inventory_weight_for_seeds
+msgid "Weight in stock (g)"
+msgstr "Poids du lot en grammes (uniquement pour les produits vendus à la graine)"

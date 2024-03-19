@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_quant_inventory_tree_tmg_inherit" model="ir.ui.view">
+        <field name="name">stock.quant.inventory.tree.tmg.inherit</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree_inventory_editable"/>
+        <field name="arch" type="xml">
+            <field name="inventory_quantity" position="after">
+                <field name="is_seeds" invisible="1"/>
+                <field name="inventory_weight_for_seeds" attrs="{'invisible': [('is_seeds', '=', False)]}"/>
+            </field>
+            <field name="inventory_quantity" position="attributes">
+                <attribute name="attrs">{'invisible': [('is_seeds', '=', True)]}</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
