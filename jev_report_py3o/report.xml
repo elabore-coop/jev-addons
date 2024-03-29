@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ******************** -->
+    <!-- ** py3o templates ** -->
+    <!-- ******************** -->
+
+    <data noupdate="0"> <!-- noupdate="1" -->
+        <!-- **************************** -->
+        <!-- **       res.partner      ** -->
+        <!-- **************************** -->
+
+        <record id="jev_report_py3o.py3o_template_carte_cadeau" model="py3o.template">
+            <field name="name">carte_cadeau.odt</field>
+            <field name="filetype">odt</field>
+            <field name="py3o_template_data" type="base64" file="jev_report_py3o/reports/carte_cadeau.odt" />
+        </record>
+    </data>
+
+
+    <!-- *********************** -->
+    <!-- ** ir.actions.report ** -->
+    <!-- *********************** -->
+
+    <data>
+        <!-- **************************** -->
+        <!-- **       res.partner      ** -->
+        <!-- **************************** -->
+
+        <record id="jev_report_py3o.action_report_carte_cadeau" model="ir.actions.report">
+            <field name="name">Carte cadeau Jardin'enVie</field>
+            <field name="report_name">gift.card</field>
+            <field name="report_type">py3o</field>
+            <field name="model">loyalty.card</field>
+            <field name="print_report_name">"Carte_cadeau_%s" % (object.code)</field>
+            <field name="py3o_filetype">pdf</field>
+            <field name="module">jev_report_py3o</field>
+            <field name="py3o_template_fallback">reports/carte_cadeau.odt</field>    
+            <field name="py3o_server_id" ref="jev_report_py3o.py3o_server" />
+            <field name="py3o_template_id" ref="jev_report_py3o.py3o_template_carte_cadeau" />
+        </record>
+
+    </data>
+
+</odoo>
