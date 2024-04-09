@@ -13,7 +13,9 @@
     'data': [
         'views/stock_lot_views.xml',
         'views/stock_quant_views.xml',
+        'views/stock_tg_views.xml',
         'views/uom_uom_views.xml',
+        'security/ir.model.access.csv',
     ],
     'installable': True,
     'auto_install': False,

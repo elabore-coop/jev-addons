@@ -10,10 +10,9 @@ class StockLot(models.Model):
     #use_pmg = fields.Boolean(string = 'PMG is mandatory for this product (product sale in seed)')
     pmg = fields.Float(string = 'TSW (g)') #TODO l'unite de mesure du produit est graine, le PMG est donc obligatoire pour ce lot
     weight = fields.Float(string = 'Weight (g)')
-    tg = fields.Float(string = 'TG')
-    tg_date = fields.Date(string = 'TG date')
     is_seeds = fields.Boolean('This product is sold per seed', related = 'product_uom_id.is_seeds', readonly=True)
-
+    tg_ids = fields.One2many('stock.tg', 'lot_id', 'Taux de germination')
+    
     @api.onchange('product_id')
     def onchange_pmg(self):
         if self.product_id.variety_ids:
