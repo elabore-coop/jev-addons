@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <field name="inventory_quantity" position="after">
                 <field name="is_seeds" invisible="1"/>
-                <field name="inventory_weight_for_seeds" attrs="{'invisible': [('is_seeds', '=', False)]}"/>
+                <field name="inventory_weight_for_seeds" attrs="{'invisible': [('is_seeds', '=', False)]}" />
             </field>
             <field name="inventory_quantity" position="attributes">
                 <attribute name="attrs">{'invisible': [('is_seeds', '=', True)]}</attribute>

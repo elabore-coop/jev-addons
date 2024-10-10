@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="stock_tg_action" model="ir.actions.act_window">
-        <field name="name">Taux de germination</field>
-        <field name="res_model">stock.tg</field>
-        <field name="view_mode">tree,form</field>
-        <field name="view_ids"
-        eval="[(5, 0, 0),
-               (0, 0, {'view_mode': 'tree', 'view_id': ref('stock_tg_view_tree')}),
-               (0, 0, {'view_mode': 'form', 'view_id': ref('stock_tg_view_form')})]"/>
-        <field name="search_view_id" ref="stock_tg_view_search"/>
-    </record>
     <record id="stock_tg_view_search" model="ir.ui.view">
         <field name="name">stock.tg.view.search</field>
         <field name="model">stock.tg</field>
@@ -18,8 +8,8 @@
                 <field name="lot_id" string="Lot associé"/>
                 <field name="tg" string="Taux de germination"/>
                 <field name="tg_date" string="Date du test"/>
+                <field name="product_id" string="Produit"/>
             </search>
-            <!-- TODO filtrer par produit / variété / espèce -->
         </field>
     </record>
     <record id="stock_tg_view_form" model="ir.ui.view">
@@ -30,7 +20,7 @@
                 <group>
                     <field name="tg" string="Taux de germination"/>
                     <field name="tg_date" string="Date du test"/>
-                    <field name="lot_id" string="Lot associé" readonly="1"/>
+                    <field name="lot_id" string="Lot associé" required="1"/>
                 </group>
             </form>
         </field>
@@ -46,6 +36,12 @@
                 <field name="product_id" string="Produit" optional="show"/>
             </tree>
         </field>
+    </record>
+    <record id="stock_tg_action" model="ir.actions.act_window">
+        <field name="name">Taux de germination</field>
+        <field name="res_model">stock.tg</field>
+        <field name="context">{'search_default_active': True}</field>
+        <field name="view_mode">tree,form</field>
     </record>
     <menuitem
       id="menu_stock_tg"

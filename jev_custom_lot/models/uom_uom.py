@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _
+from odoo import fields, models
 
-class StockQuant(models.Model):
+class UomUom(models.Model):
     _inherit = 'uom.uom'
 
     is_seeds = fields.Boolean('This product is sold per seed')

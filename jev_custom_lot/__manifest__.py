@@ -16,6 +16,8 @@
         'views/stock_tg_views.xml',
         'views/uom_uom_views.xml',
         'security/ir.model.access.csv',
+        #'wizard/product_replenish_views.xml',
+        #'wizard/stock_change_product_qty_views.xml',
     ],
     'installable': True,
     'auto_install': False,
