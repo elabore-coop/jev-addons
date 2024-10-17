@@ -21,6 +21,17 @@
                     </field>
                 </page>
             </xpath>
+            <xpath expr="//page[@name='description']" position="after">
+                <page string="Date et prix d'achat du lot" name="tg_ids">
+                    <field name="purchase_price_ids">
+                        <tree>
+                            <field name="purchase_date" string="Date d'achat"/>
+                            <field name="price_by_weight" string="Prix au gramme"/>
+                            <field name="price_paid" string="Prix payé"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>           
         </field>
     </record>
 </odoo>
