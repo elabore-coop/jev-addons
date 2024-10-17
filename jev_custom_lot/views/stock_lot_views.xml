@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <field name="ref" position="after">
                 <field name="pmg"/>
+                <field name="pmg_date" widget="date"/>
                 <field name="is_seeds" invisible="1"/>
                 <field name="weight" readonly="1" attrs="{'invisible': [('is_seeds', '=', False)]}"/>
             </field>

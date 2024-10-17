@@ -7,7 +7,7 @@ from odoo import api, fields, models, _
 class StockTg(models.Model):
     _name = 'stock.tg'
 
-    tg = fields.Float(string = 'TG')
+    tg = fields.Integer(string = 'TG')
     tg_date = fields.Date(string = 'TG date')
     lot_id = fields.Many2one('stock.lot', 'lot associé')
     product_id = fields.Many2one('product.product', compute='_compute_product')
